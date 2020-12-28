@@ -25,17 +25,17 @@
 
   <body>
     <h1>Todoリスト</h1>
-    <form action="">
+    <form id="form" action="">
       <table id="table">
         <tr>
           <td>
-            <input type="radio" class="situation" name="situation" value="全て" checked="checked">全て
+            <input type="radio" class="situation" name="check" value="全て" checked="checked">全て
           </td>
           <td>
-            <input type="radio" class="situation" name="situation" value="作業中">作業中
+            <input type="radio" class="situation" name="check" value="作業中">作業中
           </td>
           <td>
-            <input type="radio" class="situation" name="situation" value="完了">完了
+            <input type="radio" class="situation" name="check" value="完了">完了
           </td>
         </tr>
         <tr>
@@ -45,7 +45,7 @@
         </tr>
       </table>
       <h1>新規タスクの追加</h1>
-      <input type="text" id="text" value="">
+      <input type="text" id="text" name="text" value="">
       <input type="submit" id="btn" value="追加">
 
     </form>
