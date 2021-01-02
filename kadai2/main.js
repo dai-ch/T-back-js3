@@ -11,8 +11,6 @@ const radioBtn = document.getElementsByName('check');
 //Todoリストを管理する配列を宣言
 const todoList = [];
 
-//IDとtodiListで使用する変数を定義
-let num = 0;
 //追加ボタンを押した時の処理
 addBtn.addEventListener('click', function (e) {
   //ページ遷移を注視するためのイベント
@@ -43,25 +41,23 @@ const showText = function (todoList) {
     tableBody.removeChild(tableBody.firstChild);
   }
   //配列から要素数分取得
-  todoList.forEach(function (todo, i) {
+  todoList.forEach(function (todo, index) {
     //trタグとtdタグをそれぞれ作成
     const tr = document.createElement('tr');
     const tdId = document.createElement('td');
     const tdComment = document.createElement('td');
     const tdBtnWorks = document.createElement('td');
     //各タグに必要なテキストまたはクラス名を追加
-    tdId.textContent = i + 1;
+    tdId.textContent = index;
     tdComment.textContent = todo['comment'];
     tdBtnWorks.textContent = todo['status'];
     tdBtnWorks.classList.add('btn');
-
     //trの各子要素を追加する関数
     tr.appendChild(tdId);
     tr.appendChild(tdComment);
     tr.appendChild(tdBtnWorks);
     //iはtodolistの配列の要素番号
-    tr.appendChild(deleteBtn(i));
-
+    tr.appendChild(deleteBtn(index));
     //tableタグ内,trの末尾に宣言したtr要素を追加
     tableBody.insertBefore(tr, null);
   });
@@ -75,12 +71,8 @@ const deleteBtn = function (index) {
   tdBtnDelete.setAttribute('id', 'deleteBtn');
   //削除ボタンを押した時の処理
   tdBtnDelete.addEventListener('click', function () {
-    //削除予定のtodoListのインデックス番号を取得
-    const deleteListNum = todoList.findIndex(todo => {
-      return todo.id === index;
-    });
     //クリックされたボタンに対応するNodeListのプロパティを削除
-    todoList.splice(deleteListNum, 1);
+    todoList.splice(index, 1);
     //todoの各IDを再度連番になりように振り直す
     for (let i = 0; i < todoList.length; i++) {
       todoList[i]['id'] = i;
