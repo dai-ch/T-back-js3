@@ -46,16 +46,13 @@ const showText = function (todoList) {
     const tr = document.createElement('tr');
     const tdId = document.createElement('td');
     const tdComment = document.createElement('td');
-    const tdBtnWorks = document.createElement('td');
     //各タグに必要なテキストまたはクラス名を追加
     tdId.textContent = index;
     tdComment.textContent = todo['comment'];
-    tdBtnWorks.textContent = todo['status'];
-    tdBtnWorks.classList.add('btn');
     //trの各子要素を追加する関数
     tr.appendChild(tdId);
     tr.appendChild(tdComment);
-    tr.appendChild(statusBtn());
+    tr.appendChild(statusBtn(todo));
     tr.appendChild(deleteBtn(index));
     //tableタグ内,trの末尾に宣言したtr要素を追加
     tableBody.insertBefore(tr, null);
@@ -83,21 +80,20 @@ const deleteBtn = function (index) {
 }
 
 //状態を表示するボタンを作成＋表示,管理する
-const statusBtn = function () {
+const statusBtn = function (todo) {
   const statusBtn = document.createElement('td');
-  statusBtn.textContent = '作業中';
+  statusBtn.textContent = todo.status;
   statusBtn.classList.add('btn');
-  statusBtn.setAttribute('id', 'statusBtnWorks');
 
   //作業中・完了ボタンを押した時の処理
   statusBtn.addEventListener('click', function () {
-    if (statusBtn.id === 'statusBtnWorks') {
-      statusBtn.textContent = '完了';
-      statusBtn.id = 'statusBtnFinish';
-    } else if (statusBtn.id === 'statusBtnFinish') {
-      statusBtn.textContent = '作業中';
-      statusBtn.id = 'statusBtnWorks';
+    if (todo.status === '作業中') {
+      todo.status = '完了';
+    } else if (todo.status === '完了') {
+      todo.status = '作業中';
     }
+    //テキストを再表示
+    showText(todoList);
   })
   return statusBtn;
 }
